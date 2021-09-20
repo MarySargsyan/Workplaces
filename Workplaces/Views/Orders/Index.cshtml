@@ -1,0 +1,64 @@
+﻿
+@model IEnumerable<Workplaces.Models.Workplace>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<form asp-controller="Orders" asp-action="Index">
+    <input class="ui input" type="date" id="date" name="date"
+           placeholder="Выберете дату, в котрую хотите работать..."
+           min="2021-09-01" max="2022-09-01">
+    <input type="submit" value="Find places" class="btn btn-primary" />
+
+</form>
+
+<table style="margin-top: 1em" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaceNumber)
+            </th>
+            <th>
+                Items
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @using (Html.BeginForm("Order", "Orders", new { id = item.Id, date = DateTime.Now }, FormMethod.Post))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlaceNumber)
+                    </td>
+                    <td>
+                        @if (item.Items != null)
+                        {
+                            <ul>
+                                @foreach (var i in item.Items)
+                                {
+                                    <li>@i.Name</li>
+
+                                }
+                            </ul>
+                        }
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input type="submit" value="Order" class="btn btn-primary" />
+                        </div>
+                    </td>
+                </tr>
+             }
+
+         }
+    </tbody>
+</table>
+
+@*<h1>Your Orders</h1>
+@foreach(Orders orders in ViewBag.User.Orders)
+{
+    @orders.Date.Date
+}*@

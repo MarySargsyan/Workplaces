@@ -3,7 +3,13 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+<script language="JavaScript">
+    function addInput()
+    {
+        var str = '<input type="text" class="class="form-control Placeitem">';
+        document.getElementById('ItemsDiv').innerHTML = str;
+    }
+</script>
 <h1>Edit</h1>
 
 <h4>Workplace</h4>
@@ -18,6 +24,15 @@
                 <input asp-for="PlaceNumber" class="form-control" />
                 <span asp-validation-for="PlaceNumber" class="text-danger"></span>
             </div>
+            <label asp-for="Items" class="control-label"></label>
+            @foreach (var i in ViewBag.Items)
+            {
+                <div class="form-group">
+                    <input class="form-control Placeitem" value="@i.Name" />
+                </div>
+            }
+            <div class="form-group" id="ItemsDiv"></div>
+            <button type="button" onclick="addInput()" class="btn addItem">Add item</button>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

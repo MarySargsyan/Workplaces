@@ -31,15 +31,9 @@ namespace Workplaces.Controllers
             }
             else
             {
-            return Content($"ваша роль: {role}");
+                return RedirectToAction("Index", "Orders");
 
             }
-        }
-
-        [Authorize(Roles = "admin")]
-        public IActionResult Privacy()
-        {
-            return Content("Вход только для администратора");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

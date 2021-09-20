@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,12 +24,16 @@ namespace Workplaces.Controllers
         // GET: Workplaces
         public ActionResult Index()
         {
+            ViewBag.Items = _context.Items.ToList();
             return View(_workPlaces.AllPlaces().ToList());
         }
 
-        // GET: Workplaces/Details/5
+        // поменять это на orders
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.Orders = _context.Orders.ToList();
+            ViewBag.Users = _context.Users.ToList();
+
             if (id == null)
             {
                 return NotFound();
@@ -50,10 +54,6 @@ namespace Workplaces.Controllers
         {
             return View();
         }
-
-        // POST: Workplaces/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PlaceNumber")] Workplace workplace)
@@ -74,6 +74,7 @@ namespace Workplaces.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Items = _context.Items.Where(c => c.WorkPlaceId == id);
 
             var workplace = await _context.Workplaces.FindAsync(id);
             if (workplace == null)
