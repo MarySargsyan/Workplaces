@@ -27,7 +27,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            @using (Html.BeginForm("Order", "Orders", new { id = item.Id, date = DateTime.Now }, FormMethod.Post))
+            @using (Html.BeginForm("Order", "Orders", new { id = item.Id, date = ViewBag.Date }, FormMethod.Post))
             {
                 <tr>
                     <td>
@@ -51,14 +51,16 @@
                         </div>
                     </td>
                 </tr>
-             }
+            }
 
-         }
+        }
     </tbody>
 </table>
 
 @*<h1>Your Orders</h1>
-@foreach(Orders orders in ViewBag.User.Orders)
-{
-    @orders.Date.Date
-}*@
+    @foreach(Orders orders in ViewBag.User.Orders)
+    {
+        @orders.Date.Date
+        @orders.Workplace.PlaceNumber
+    }*@
+@*получить конкретного пользователя*@

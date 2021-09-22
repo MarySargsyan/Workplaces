@@ -22,25 +22,32 @@ namespace Workplaces.Controllers
         }
 
         public IActionResult Index(DateTime date)
-        {
-            //List<Workplace> workplaces1 = new List<Workplace>();
-            //if (date != null)
-            //{
-            //    foreach(Workplace w in workplaces)
-            //    {
-            //        foreach(Orders orders in w.Orders)
-            //        {
-            //            if(orders.Date != date)
-            //            {
-            //                workplaces1.Add(w);
-            //            }
-            //        }
-            //    }
-            //    return View(workplaces1);
-
-            //}
+        {  
+            ViewBag.Orders = _context.Orders.ToList();
             ViewBag.Items = _context.Items.ToList();
-            return View(_workPlaces.AllPlaces().ToList());
+            ViewBag.Date = date;
+
+            List<Workplace> workplaces = _workPlaces.AllPlaces().ToList();
+            List<Workplace> workplaces1 = new List<Workplace>();
+
+            if (date != null)
+            {
+                foreach (Workplace w in workplaces)
+                {
+                    foreach (Orders orders in w.Orders)
+                    {
+                        if (orders.Date != date)
+                        {
+                            workplaces1.Add(w);
+                        }
+                    }
+                }
+                //var results = workplaces.GroupBy(x => x.Id).Select(x => x.First()).ToList();
+                return View(workplaces1);
+
+            }
+
+            return View();
 
         }
 
@@ -48,13 +55,11 @@ namespace Workplaces.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Order(int? id, DateTime date)
         {
-            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user userId
-
             if (ModelState.IsValid)
             {
                 Orders order = new Orders()
                 {
-                    UserId = 2,
+                    UserId = GetCorrentUserId(),
                     Date = date,
                     WorkPlaceId = id
                     };
@@ -63,6 +68,19 @@ namespace Workplaces.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction("Index");
+        }
+
+        public int GetCorrentUserId() 
+        {
+            int CorrentUserId = 0;
+            foreach (User user in _context.Users.ToList())
+            {
+                if (User.Identity.Name == user.Email)
+                {
+                    CorrentUserId = user.Id;
+                }
+            }
+            return (CorrentUserId);
         }
 
     }
