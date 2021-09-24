@@ -27,27 +27,15 @@ namespace Workplaces.Controllers
             ViewBag.Items = _context.Items.ToList();
             ViewBag.Date = date;
 
-            List<Workplace> workplaces = _workPlaces.AllPlaces().ToList();
-            List<Workplace> workplaces1 = new List<Workplace>();
-
-            if (date != null)
+            List<Workplace> workplaces = _context.Workplaces.ToList();
+            foreach(Orders orders in _context.Orders.ToList())
             {
-                foreach (Workplace w in workplaces)
+                if(orders.Date == date)
                 {
-                    foreach (Orders orders in w.Orders)
-                    {
-                        if (orders.Date != date)
-                        {
-                            workplaces1.Add(w);
-                        }
-                    }
+                    workplaces.Remove(orders.Workplace);
                 }
-                //var results = workplaces.GroupBy(x => x.Id).Select(x => x.First()).ToList();
-                return View(workplaces1);
-
             }
-
-            return View();
+            return View(workplaces);
 
         }
 
@@ -55,6 +43,8 @@ namespace Workplaces.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Order(int? id, DateTime date)
         {
+            ViewBag.Users = _context.Users.ToList();
+            ViewBag.CorrentUserId = GetCorrentUserId();
             if (ModelState.IsValid)
             {
                 Orders order = new Orders()
@@ -62,7 +52,7 @@ namespace Workplaces.Controllers
                     UserId = GetCorrentUserId(),
                     Date = date,
                     WorkPlaceId = id
-                    };
+                };
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

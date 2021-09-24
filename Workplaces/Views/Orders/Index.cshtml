@@ -58,9 +58,15 @@
 </table>
 
 @*<h1>Your Orders</h1>
-    @foreach(Orders orders in ViewBag.User.Orders)
+@foreach (var user in ViewBag.Users)
     {
-        @orders.Date.Date
-        @orders.Workplace.PlaceNumber
+        if (user.Id == ViewBag.CorrentUserId)
+        {
+            foreach (Orders orders in user.Orders)
+            {
+                @orders.Date.Date
+                @orders.Workplace.PlaceNumber
+            }
+        }
+
     }*@
-@*получить конкретного пользователя*@
