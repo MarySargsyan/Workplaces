@@ -11,7 +11,7 @@
     <input type="submit" value="Find places" class="btn btn-primary" />
 
 </form>
-
+@ViewBag.Date
 <table style="margin-top: 1em" class="table">
     <thead>
         <tr>
@@ -27,7 +27,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            @using (Html.BeginForm("Order", "Orders", new { id = item.Id, date = ViewBag.Date }, FormMethod.Post))
+            @using (Html.BeginForm("OrderTable", "Orders", new { id = item.Id, date = DateTime.Now }, FormMethod.Get))
             {
                 <tr>
                     <td>
@@ -57,16 +57,23 @@
     </tbody>
 </table>
 
-@*<h1>Your Orders</h1>
-@foreach (var user in ViewBag.Users)
+<h4>Your Orders</h4>
+<div class="ui cards">
+    @foreach (Orders orders in ViewBag.CorrentUserOrders)
     {
-        if (user.Id == ViewBag.CorrentUserId)
-        {
-            foreach (Orders orders in user.Orders)
-            {
-                @orders.Date.Date
-                @orders.Workplace.PlaceNumber
-            }
-        }
-
-    }*@
+        <div class="ui card">
+            <div class="content">
+                <div class="center aligned header">@orders.Date.Day/@orders.Date.Month</div>
+                <div class="center aligned description">
+                    <h6>Place number</h6>
+                    <p>@orders.Workplace.PlaceNumber</p>
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="center aligned author">
+                    <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/jenny.jpg"> @User.Identity.Name
+                </div>
+            </div>
+        </div>
+    }
+</div>
