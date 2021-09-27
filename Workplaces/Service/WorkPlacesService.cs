@@ -17,5 +17,12 @@ namespace Workplaces.Service
         }
         public IEnumerable<Workplace> AllPlaces() => _repository.AllPlaces();
 
+        public void Delete(Workplace workplace) => _repository.Delete(workplace);
+
+        public Workplace GetById(int id) => _repository.GetById(id);
+
+        public void Insert(Workplace workplace) => _repository.Insert(workplace);
+
+        public void Update(Workplace workplace) => _repository.Update(workplace);
     }
 }

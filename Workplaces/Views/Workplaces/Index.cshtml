@@ -28,15 +28,21 @@
                 @Html.DisplayFor(modelItem => item.PlaceNumber)
             </td>
             <td>
-                @if (item.Items != null)
+                @foreach (var p in ViewBag.PItems)
                 {
-                    <ul>
-                        @foreach (var i in item.Items)
-                        { 
-                            <li>@i.Name</li>                      
+                    if (p.WorkplaceId == item.Id)
+                    {
+                        foreach (var i in ViewBag.Items)
+                        {
+                            if (p.ItemId == i.Id)
+                            {
+                                <li>@i.Name</li>
+
+                            }
                         }
-                    </ul>
+                    }
                 }
+
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

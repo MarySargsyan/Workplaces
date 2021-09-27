@@ -23,5 +23,25 @@ namespace Workplaces.Repository
                 return WorkPlaces;
             }
         }
+
+        public void Delete(Workplace workplace)
+        {
+            _context.Workplaces.Remove(workplace);
+        }
+
+        public Workplace GetById(int id)
+        {
+            return _context.Workplaces.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Insert(Workplace workplace)
+        {
+            _context.Workplaces.Add(workplace);
+        }
+
+        public void Update(Workplace workplace)
+        {
+            _context.Workplaces.Update(workplace);
+        }
     }
 }

@@ -9,6 +9,10 @@ namespace Workplaces.Repository
     public interface IWorkPlacesRepository
     {
         IEnumerable<Workplace> AllPlaces();
+        Workplace GetById(int id);
+        void Insert(Workplace workplace);
+        void Update(Workplace workplace);
+        void Delete(Workplace workplace);
 
     }
 }

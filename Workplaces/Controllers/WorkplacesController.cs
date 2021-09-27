@@ -25,6 +25,7 @@ namespace Workplaces.Controllers
         public ActionResult Index()
         {
             ViewBag.Items = _context.Items.ToList();
+            ViewBag.PItems = _context.PlaceItems.ToList();
             return View(_workPlaces.AllPlaces().ToList());
         }
 
@@ -33,19 +34,7 @@ namespace Workplaces.Controllers
         {
             ViewBag.Orders = _context.Orders.ToList();
             ViewBag.Users = _context.Users.ToList();
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var workplace = await _context.Workplaces
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (workplace == null)
-            {
-                return NotFound();
-            }
-
+            var workplace = _workPlaces.GetById(Convert.ToInt32(id));
             return View(workplace);
         }
 
@@ -60,80 +49,47 @@ namespace Workplaces.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(workplace);
+                _workPlaces.Insert(workplace);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(workplace);
         }
 
-        // GET: Workplaces/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            ViewBag.Items = _context.Items.Where(c => c.WorkPlaceId == id);
-
-            var workplace = await _context.Workplaces.FindAsync(id);
-            if (workplace == null)
-            {
-                return NotFound();
-            }
+            ViewBag.Items = _context.Items.ToList();
+            ViewBag.SelectedItems = _context.Items.Where(i => i.placeItem.Where(p => p.WorkplaceId == id).Count() > 0 ? true : false).ToList();
+            var workplace = _workPlaces.GetById(Convert.ToInt32(id));
             return View(workplace);
         }
-
-        // POST: Workplaces/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PlaceNumber")] Workplace workplace)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PlaceNumber")] Workplace workplace, int[] selectedItems)
         {
-            if (id != workplace.Id)
+            foreach(PlaceItem placei in _context.PlaceItems.Where(p=>p.WorkplaceId == id))
             {
-                return NotFound();
+                _context.PlaceItems.Remove(placei);
             }
+            foreach (var i in _context.Items.Where(co => selectedItems.Contains(co.Id)))
+            {
+               PlaceItem placeItem = new PlaceItem()
+               {
+                 ItemId = i.Id,
+                 WorkplaceId = id
+               };
+               _context.PlaceItems.Add(placeItem);
+            }
+            _context.Update(workplace);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(workplace);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!WorkplaceExists(workplace.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(workplace);
         }
 
         // GET: Workplaces/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var workplace = await _context.Workplaces
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (workplace == null)
-            {
-                return NotFound();
-            }
-
+            var workplace = _workPlaces.GetById(Convert.ToInt32(id));
             return View(workplace);
         }
 
@@ -142,8 +98,8 @@ namespace Workplaces.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var workplace = await _context.Workplaces.FindAsync(id);
-            _context.Workplaces.Remove(workplace);
+            var workplace = _workPlaces.GetById(Convert.ToInt32(id));
+            _workPlaces.Delete(workplace);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

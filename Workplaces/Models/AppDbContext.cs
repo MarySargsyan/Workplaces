@@ -14,6 +14,7 @@ namespace Workplaces.Models
         public DbSet<User> Users { get; set; }  
         public DbSet<Role> Roles { get; set; }
         public DbSet<Orders> Orders { get; set; }
+        public DbSet<PlaceItem> PlaceItems { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
            : base(options)
@@ -24,6 +25,12 @@ namespace Workplaces.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PlaceItem>().HasKey(pi => new { pi.ItemId, pi.WorkplaceId });
+            modelBuilder.Entity<PlaceItem>().
+                HasOne(pi => pi.items).WithMany(pi => pi.placeItem).HasForeignKey(p => p.ItemId);
+            modelBuilder.Entity<PlaceItem>().
+                HasOne(pi => pi.workplace).WithMany(pi => pi.placeItem).HasForeignKey(p => p.WorkplaceId);
+
             string adminRoleName = "admin";
             string userRoleName = "user";
  

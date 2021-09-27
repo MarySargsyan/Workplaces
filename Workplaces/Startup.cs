@@ -27,9 +27,13 @@ namespace Workplaces
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddTransient<IOrdersRepository, OrdersRepository>();
+            services.AddTransient<IOrderService, OrderService>();
+
             services.AddTransient<IWorkPlacesRepository, WorkplacesRepository>();
             services.AddTransient<IWorkPlacesService, WorkPlacesService>();
+
+            string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                  .AddCookie(options => //CookieAuthenticationOptions

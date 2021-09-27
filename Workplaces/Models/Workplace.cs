@@ -11,12 +11,11 @@ namespace Workplaces.Models
 
         public int PlaceNumber { get; set; }
         public List<Orders> Orders { get; set; }
-        public List<Items> Items { get; set; }
+        public List<PlaceItem> placeItem { get; set; }
 
         public Workplace()
         { 
             Orders = new List<Orders>();
-            Items = new List<Items>();
         }
 
     }

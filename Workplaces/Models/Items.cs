@@ -9,8 +9,7 @@ namespace Workplaces.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int? WorkPlaceId { get; set; }
-        public Workplace Workplace { get; set; }
+        public List<PlaceItem> placeItem { get; set; }
 
     }
 }

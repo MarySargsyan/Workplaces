@@ -15,9 +15,11 @@ namespace Workplaces.Controllers
         public static DateTime Orderdate = new DateTime();
         private readonly AppDbContext _context;
         private readonly IWorkPlacesService _workPlaces;
+        private readonly IOrderService _orders;
 
-        public OrdersController(AppDbContext context, IWorkPlacesService workPlaces)
+        public OrdersController(AppDbContext context, IWorkPlacesService workPlaces, IOrderService orders)
         {
+            _orders = orders;
             _context = context;
             _workPlaces = workPlaces;
         }
@@ -26,7 +28,8 @@ namespace Workplaces.Controllers
         {  
             ViewBag.Orders = _context.Orders.ToList();
             ViewBag.Items = _context.Items.ToList();
-            ViewBag.CorrentUserOrders = _context.Orders.Where(order => order.UserId == GetCorrentUserId()).ToList();
+            ViewBag.CorrentUserOrders = _context.Orders.ToList().Where(order => order.UserId == GetCorrentUserId()).ToList();
+            ViewBag.PItems = _context.PlaceItems.ToList();
 
             Orderdate = date;
             List<Workplace> workplaces = _context.Workplaces.ToList();
@@ -44,16 +47,7 @@ namespace Workplaces.Controllers
         public IActionResult OrderTable(int? id)
         {
             ViewBag.d = Orderdate;
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var workplace = _context.Workplaces.Find(id);
-            if (workplace == null)
-            {
-                return NotFound();
-            }
-
+            var workplace = _workPlaces.GetById(Convert.ToInt32(id));
             return View(workplace);
         }
 
@@ -69,35 +63,13 @@ namespace Workplaces.Controllers
                     Date = Orderdate,
                     WorkPlaceId = id
                 };
-                _context.Orders.Add(order);
+               _orders.Insert(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction("Index");
 
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Order(int? id, DateTime date)
-        //{
-        //    ViewBag.Users = _context.Users.ToList();
-        //    ViewBag.CorrentUserId = GetCorrentUserId();
-        //    if (ModelState.IsValid)
-        //    {
-        //        Orders order = new Orders()
-        //        {
-        //            UserId = GetCorrentUserId(),
-        //            Date = date,
-        //            WorkPlaceId = id
-        //        };
-        //        _context.Orders.Add(order);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-
         public int GetCorrentUserId() 
         {
             int CorrentUserId = 0;
