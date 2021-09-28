@@ -55,6 +55,9 @@ namespace Workplaces.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OrderConfirmed(int id)
         {
+            //ViewBag.Items = _context.Items.ToList();
+            //ViewBag.SelectedItems = _context.Items.Where(i => i.placeItem.Where(p => p.WorkplaceId == id).Count() > 0 ? true : false).ToList();
+
             if (ModelState.IsValid)
             {
                 Orders order = new Orders()

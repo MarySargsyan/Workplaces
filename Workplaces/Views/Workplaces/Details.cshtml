@@ -23,10 +23,10 @@
     <thead>
         <tr>
             <th>
-                Дата
+                Date
             </th>
             <th>
-                Работник
+                Employee
             </th>
         </tr>
     </thead>
@@ -35,7 +35,7 @@
         {
             <tr>
                 <td>
-                    @orders.Date
+                    @orders.Date.Day/@orders.Date.Month/@orders.Date.Year
                 </td>
                 <td>
                     @orders.User.Name

@@ -21,8 +21,22 @@
             Date
         </dt>
         <dd class="col-sm-10">
-            @ViewBag.d
+            @{DateTime date = @ViewBag.d;}
+            @date.Day/@date.Month/@date.Year
         </dd>
+        @*<dt class="col-sm-2">
+            Items
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (Items i in ViewBag.Items)
+            {
+                if (ViewBag.SelectedItems.Contains(i))
+                {
+                    <li>@i.Name</li>
+                }
+
+            }
+        </dd>*@
     </dl>
 
     <form asp-action="OrderTable">
