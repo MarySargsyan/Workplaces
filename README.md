@@ -25,7 +25,7 @@ Web Application for bookin workplaces in officce
             <li>
               <h4>Edit workplace</h4>
               Here you can change the place number and work plcse's items.<br/> When you done click the button.
-              <img src="images/Edit%20-%20Workplace.png"/>
+              <img src="images/Edit1"/>
             </li>
             <li>
               <h4>Removing the workplace</h4>
