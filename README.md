@@ -40,7 +40,7 @@ Web Application for bookin workplaces in officce
   </li>
  <li>
       <h3>if you are logged in as an employee, you will see the following page".</h3><br/>
-      <img src="images/EmployeePanel.png"/>
+      <img src="images/EmployeePanel1.png"/>
       Here you can select a day you want to job and order one of free tables, also you can view your orders.<br/>
           <ol>
             <li>
