@@ -6,11 +6,11 @@ Web Application for bookin workplaces in officce
   <li>
      <h3> When you will start this application, you will see the login page.<br/>
       you should to log in if you already have an account? or registrate if you dont.</h3>
-      <img src="images/Login.png"/>
+      <img src="images/Login1.png"/>
   </li>
   <li>
      <h3> If you go to registeration you should to fill in all the fields, then click on the registration button.</h3>
-      <img src="images/Registation.png"/>
+      <img src="images/Registation1.png"/>
   </li>
   <li>
       <h3>if you are logged in as an administrator, you will see the following page with a list of workplaces".</h3>
