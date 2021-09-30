@@ -42,9 +42,9 @@
                     }
                     else
                     {
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        <ul  style="display:inline" class="nav navbar-nav navbar-right">
+                            <li  style="display:inline; margin-right: 0.5em">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "ui inverted button" })</li>
+                            <li  style="display:inline">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "ui inverted button" })</li>
                         </ul>
                     }
                 </div>
