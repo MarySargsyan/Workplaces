@@ -14,12 +14,14 @@ namespace Workplaces.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IWorkPlacesService _workPlaces;
+        private AppDbContext context;
 
         public WorkplacesController(AppDbContext context, IWorkPlacesService workPlaces)
         {
             _context = context;
             _workPlaces = workPlaces;
         }
+
 
         // GET: Workplaces
         public ActionResult Index()

@@ -24,4 +24,9 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\favicon.ico" />
+    <None Include="wwwroot\images\WiteIcon.png" />
+  </ItemGroup>
+
 </Project>

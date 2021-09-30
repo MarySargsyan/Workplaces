@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Workplaces</title>
+    <title>@ViewData["Title"] Solbeg-Workplaces</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
@@ -16,23 +16,25 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-inverse navbar-fixed-top" style=" background-color: #54354F; color: #ffffff">
             <div class="container">
+                <img  style="margin-top: 5px;margin-left:2px; width: 160px; display:inline" src="~/images/WiteIcon.png" />
 
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <div style="margin-top: -2.5em" class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                         {
                             @Html.AntiForgeryToken()
 
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
+                            <ul style="display:inline" class="nav navbar-nav navbar-right">
+                                <li style="display:inline; margin-right: 1em">
                                     Hello,@User.Identity.Name!
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="display:inline">
                                     <form class="form-inline" asp-area="Identity" asp-page="/Users/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                        <button type="submit" class="nav-link btn btn-link ui inverted button">Logout</button>
                                     </form>
                                 </li>
                             </ul>
@@ -47,7 +49,7 @@
                     }
                 </div>
             </div>
-        </nav>
+            </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">

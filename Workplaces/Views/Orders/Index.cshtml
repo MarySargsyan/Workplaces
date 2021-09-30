@@ -1,25 +1,25 @@
 ﻿
 @model IEnumerable<Workplaces.Models.Workplace>
 
-@{
-    ViewData["Title"] = "Index";
-}
-<form asp-controller="Orders" asp-action="Index">
-    <input class="ui input" type="date" id="date" name="date"
-           placeholder="Выберете дату, в котрую хотите работать..."
-           min="2021-09-01" max="2022-09-01">
-    <input type="submit" value="Find places" class="btn btn-primary" />
-
-</form>
+<div style="margin-top: 2em" class="center aligned ui action input">
+    <form asp-controller="Orders" asp-action="Index">
+        <input class="ui input" type="date" id="date" name="date"
+               placeholder="Выберете дату, в котрую хотите работать..."
+               min="2021-09-01" max="2022-09-01">
+            <button type="submit" style="color: #54354F;border:none; background-color: transparent" value="Find places">
+                <i class="search icon"></i>
+            </button>
+    </form>
+</div>
 @ViewBag.Date
-<table style="margin-top: 1em" class="table">
+<table style="margin-top: 2em" class="table">
     <thead>
-        <tr>
+        <tr ALIGN="CENTER" VALIGN=”MIDDLE”>
             <th>
-                @Html.DisplayNameFor(model => model.PlaceNumber)
+                <h3> @Html.DisplayNameFor(model => model.PlaceNumber)</h3>
             </th>
             <th>
-                Items
+                <h3>Items</h3>
             </th>
             <th></th>
         </tr>
@@ -29,13 +29,12 @@
         {
             @using (Html.BeginForm("OrderTable", "Orders", new { id = item.Id, date = DateTime.Now }, FormMethod.Get))
             {
-                <tr>
+                <tr ALIGN="CENTER" VALIGN=”MIDDLE”>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PlaceNumber)
+                       <h4 class="ui center aligined header"> @Html.DisplayFor(modelItem => item.PlaceNumber)</h4>
                     </td>
                     <td>
 
-                        <ul>
                             @foreach (var p in ViewBag.PItems)
                             {
                                 if (p.WorkplaceId == item.Id)
@@ -44,17 +43,16 @@
                                     {
                                         if (p.ItemId == i.Id)
                                         {
-                                            <li>@i.Name</li>
+                                            @i.Name<br />
 
                                         }
                                     }
                                 }
                             }
-                        </ul>
                     </td>
                     <td>
                         <div class="form-group">
-                            <input type="submit" value="Order" class="btn btn-primary" />
+                            <input type="submit" value="Order" class="ui button" style="background-color: #54354F; color: white" />
                         </div>
                     </td>
                 </tr>
@@ -64,23 +62,31 @@
     </tbody>
 </table>
 
-<h4>Your Orders</h4>
+<h2 style="color: #515151; margin-bottom: 2em; margin-top: 2em" class="ui header">
+    Your Orders
+</h2>
 <div class="ui cards">
     @foreach (Orders orders in ViewBag.CorrentUserOrders)
     {
-        <div class="ui card">
-            <div class="content">
-                <div class="center aligned header">@orders.Date.Day/@orders.Date.Month</div>
-                <div class="center aligned description">
-                    <h6>Place number</h6>
-                    <p>@orders.Workplace.PlaceNumber</p>
+        using (Html.BeginForm("CancelOrder", "Orders", new { id = orders.Id }, FormMethod.Get))
+        {
+
+            <div style="margin-left: 2em" class="ui card">
+                <div class="content">
+                    <div class="center aligned header">
+                        <i class="calendar outline icon"></i>
+                        @orders.Date.Day/@orders.Date.Month
+                    </div>
+                    <div style="margin-top: 1em" class="center aligned description">
+                        <h5>
+                            Place number
+                            @orders.Workplace.PlaceNumber
+                        </h5>
+                    </div>
                 </div>
+                <button class="ui bottom attached button" style="background-color: white; color:#54354F" type="submit"><i class="x icon"></i>Сancel</button>
+
             </div>
-            <div class="extra content">
-                <div class="center aligned author">
-                    <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/jenny.jpg"> @User.Identity.Name
-                </div>
-            </div>
-        </div>
+        }
     }
-</div>
+ </div>
