@@ -1,0 +1,52 @@
+﻿@model Workplaces.Models.Orders
+
+
+<div class="row">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-6">
+        <div style="margin-top: 3em" class="ui segment">
+            <h1 class="ui center aligned header">Cancel</h1>
+            <h3 class="ui center aligned header">Do you want to cancel this order?</h3>
+            <div class="container">
+                <div style="margin-top: 1em; margin-left: 6em" class="row">
+                    <div class="col">
+                        @Html.DisplayNameFor(model => model.Workplace)
+                    </div>
+                    <div class="col">
+                        @foreach(Workplace workplace in ViewBag.Workplaces)
+                        {
+                            if(Model.WorkPlaceId == workplace.Id)
+                            {
+                                @workplace.PlaceNumber
+                            }
+                        }
+                    </div>
+                </div>
+                <div style=" margin-top: 1em;margin-left: 6em" class="row">
+                    <div class="col">
+                        Date
+                    </div>
+                    <div class="col">
+                        @{DateTime date = Model.Date;}
+                        @date.Day/@date.Month/@date.Year
+                    </div>
+                </div>
+
+
+            </div>
+            <form style="margin-left: 30%; margin-top:2em" asp-action="Cancel">
+
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Cancel" class="ui button" style="background-color: #54354F; color: white; margin-right: 1em" />
+                <a style="background-color: transparent;color: #54354F;border: #54354F 0.2em solid; padding: 0.46em 1em; border-radius: 0.3em" asp-action="Index">Don't cancel</a>
+
+            </form>
+        </div>
+
+    </div>
+    <div class="col-sm-3">
+    </div>
+
+</div>
+

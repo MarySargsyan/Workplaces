@@ -55,24 +55,56 @@ namespace Workplaces.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OrderConfirmed(int id)
         {
-            //ViewBag.Items = _context.Items.ToList();
-            //ViewBag.SelectedItems = _context.Items.Where(i => i.placeItem.Where(p => p.WorkplaceId == id).Count() > 0 ? true : false).ToList();
+            int correntuserid = GetCorrentUserId();
+            User user = _context.Users.Find(correntuserid);
+            foreach(Orders orders in user.Orders)
+            {
+                if(orders.Date != Orderdate)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        Orders order = new Orders()
+                        {
+                            UserId = correntuserid,
+                            Date = Orderdate,
+                            WorkPlaceId = id
+                        };
+                       _orders.Insert(order);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
 
+        }
+        public IActionResult Cancel(int? id)
+        {
+            ViewBag.Workplaces = _context.Workplaces.ToList();
+            var order = _orders.GetById(Convert.ToInt32(id));
+            return View(order);
+        }
+
+        [HttpPost, ActionName("Cancel")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Cancel(int id)
+        {
+ 
             if (ModelState.IsValid)
             {
-                Orders order = new Orders()
-                {
-                    UserId = GetCorrentUserId(),
-                    Date = Orderdate,
-                    WorkPlaceId = id
-                };
-               _orders.Insert(order);
+                var order = _orders.GetById(Convert.ToInt32(id));
+                _orders.Delete(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction("Index");
 
         }
+        
         public int GetCorrentUserId() 
         {
             int CorrentUserId = 0;
