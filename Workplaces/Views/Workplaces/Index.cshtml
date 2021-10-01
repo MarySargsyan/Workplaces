@@ -1,11 +1,17 @@
 ﻿@model IEnumerable<Workplaces.Models.Workplace>
 
-<h1>Work places</h1>
+<div style="margin-top: 3em;" class="container">
+    <div class="row">
+        <div class="col-sm-10">
+            <h1 style=" color: #515151" class="ui cennter aligned header">Work places</h1>
+        </div>
+        <div class="col-sm-2">
+            <a style=" float:right; background-color: transparent; color: #54354F; border: #54354F 0.2em solid; padding: 0.46em 1em; border-radius: 0.3em" asp-action="Create"><i class="plus icon"></i>Create New</a>
+        </div>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table style="margin-top: 2em;"  class="table">
     <thead>
         <tr>
             <th>
@@ -41,9 +47,9 @@
 
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Orders</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a style="color: #54354F" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a style="color: #54354F" asp-action="Details" asp-route-id="@item.Id">Orders</a> |
+                <a style="color: #54354F" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

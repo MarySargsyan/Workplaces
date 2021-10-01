@@ -3,40 +3,43 @@
 @{
     ViewData["Title"] = "Edit";
 }
-<h1>Edit</h1>
-
-<h4>Workplace</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="PlaceNumber" class="control-label"></label>
-                <input asp-for="PlaceNumber" class="form-control" />
-                <span asp-validation-for="PlaceNumber" class="text-danger"></span>
-            </div>
-            @foreach (Items i in ViewBag.Items)
-            {
-                <div class="ui checkbox">
-
-                    <input name="selectedItems" type="checkbox" value="@i.Id" @(ViewBag.SelectedItems.Contains(i) ? "checked=\"checked\"" : "") />
-                    <label> @i.Name &nbsp </label>
-                </div>
-            }
-            <div class="form-group" id="ItemsDiv"></div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<div class="row">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-6">
+        <div style="margin-top: 3em" class="ui segment">
+
+                    <h1 class="ui center aligned header">Edit</h1>
+
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div style="margin-bottom: 2em" class="form-group">
+                            <label asp-for="PlaceNumber" class="control-label"></label>
+                            <input asp-for="PlaceNumber" class="form-control" />
+                            <span asp-validation-for="PlaceNumber" class="text-danger"></span>
+                        </div>
+                        @foreach (Items i in ViewBag.Items)
+                        {
+                            <div class="ui checkbox">
+
+                                <input name="selectedItems" type="checkbox" value="@i.Id" @(ViewBag.SelectedItems.Contains(i) ? "checked=\"checked\"" : "") />
+                                <label> @i.Name &nbsp </label>
+                            </div>
+                        }
+                        <div style="margin-left: 30%; margin-top:2em" class="form-group">
+                            <input type="submit" value="Save" class="ui button" style="background-color: #54354F; color: white" />
+                            <a style="background-color: transparent;color: #54354F;border: #54354F 0.2em solid; padding: 0.46em 1em; border-radius: 0.3em" asp-action="Index">Back to List</a>
+                        </div>
+                    </form>
+
+        </div>
+
+    </div>
+    <div class="col-sm-3">
+    </div>
+
+</div>

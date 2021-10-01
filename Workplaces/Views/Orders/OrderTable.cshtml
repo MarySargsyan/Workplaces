@@ -1,47 +1,46 @@
 ﻿@model Workplaces.Models.Workplace
 
-@{
-    ViewData["Title"] = "Delete";
-}
 
-<h1>Order</h1>
+<div class="row">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-6">
+        <div style="margin-top: 3em" class="ui segment">
+            <h1 class="ui center aligned header">Order</h1>
+            <h3 class="ui center aligned header">Do you want to order this table?</h3>
+            <div class="container">
+                <div style="margin-top: 1em; margin-left: 6em" class="row">
+                    <div class="col">
+                        @Html.DisplayNameFor(model => model.PlaceNumber)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayFor(model => model.PlaceNumber)
+                    </div>
+                </div>
+                <div style=" margin-top: 1em;margin-left: 6em" class="row">
+                    <div class="col">
+                        Date
+                    </div>
+                    <div class="col">
+                        @{DateTime date = @ViewBag.d;}
+                        @date.Day/@date.Month/@date.Year
+                    </div>
+                </div>
 
-<h3>You want to order this table?</h3>
-<div>
-    <h4>Workplace</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PlaceNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PlaceNumber)
-        </dd>
-        <dt class="col-sm-2">
-            Date
-        </dt>
-        <dd class="col-sm-10">
-            @{DateTime date = @ViewBag.d;}
-            @date.Day/@date.Month/@date.Year
-        </dd>
-        @*<dt class="col-sm-2">
-            Items
-        </dt>
-        <dd class="col-sm-10">
-            @foreach (Items i in ViewBag.Items)
-            {
-                if (ViewBag.SelectedItems.Contains(i))
-                {
-                    <li>@i.Name</li>
-                }
 
-            }
-        </dd>*@
-    </dl>
+            </div>
+            <form style="margin-left: 30%; margin-top:2em" asp-action="OrderTable">
 
-    <form asp-action="OrderTable">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Order" class="btn" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Order" class="ui button" style="background-color: #54354F; color: white; margin-right: 1em" />
+                <a style="background-color: transparent;color: #54354F;border: #54354F 0.2em solid; padding: 0.46em 1em; border-radius: 0.3em" asp-action="Index">Back to List</a>
+
+            </form>
+        </div>
+
+    </div>
+    <div class="col-sm-3">
+    </div>
+
 </div>
+

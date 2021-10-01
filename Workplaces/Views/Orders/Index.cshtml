@@ -68,7 +68,7 @@
 <div class="ui cards">
     @foreach (Orders orders in ViewBag.CorrentUserOrders)
     {
-        using (Html.BeginForm("CancelOrder", "Orders", new { id = orders.Id }, FormMethod.Get))
+        using (Html.BeginForm("Cancel", "Orders", new { id = orders.Id }, FormMethod.Get))
         {
 
             <div style="margin-left: 2em" class="ui card">
