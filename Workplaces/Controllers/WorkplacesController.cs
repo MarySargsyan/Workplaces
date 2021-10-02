@@ -91,7 +91,7 @@ namespace Workplaces.Controllers
         // GET: Workplaces/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            var workplace = _workPlaces.GetById(Convert.ToInt32(id));
+            Workplace workplace = await _context.Workplaces.FindAsync(id);
             return View(workplace);
         }
 
@@ -100,8 +100,8 @@ namespace Workplaces.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var workplace = _workPlaces.GetById(Convert.ToInt32(id));
-            _workPlaces.Delete(workplace);
+            Workplace workplace = await _context.Workplaces.FindAsync(id);
+            _context.Workplaces.Remove(workplace);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
