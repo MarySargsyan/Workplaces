@@ -14,8 +14,9 @@ Web Application for bookin workplaces in officce
   </li>
   <li>
       <h3>if you are logged in as an administrator, you will see the following page with a list of workplaces".</h3>
-      <img src="images/Solbeg-Workplace.png"/>
+      <img src="images/AdminPanel2.png"/>
       Here you can creat new place, delete or edit work place and also view plase's orders.<br/>
+     Also you can go to items management.
           <ol>
             <li>
               <h4>Creating new workplace</h4>
@@ -36,7 +37,20 @@ Web Application for bookin workplaces in officce
               <h4>View the workplace's orders</h4>
               <img src="images/Orders.png"/>
             </li>
-         </ol>
+            <li>
+              <h4>Items management page. Here you can delete and create items</h4>
+              <img src="images/ItemMamage.png"/>
+            </li>
+            <li>
+              <h4>Creating new item</h4>
+              Here you should to fiil item's name and then click the button.
+              <img src="images/CreateItem.png"/>
+            </li>
+            <li>
+              <h4>Removing the item</h4>
+              Here you should to confirm the removing.
+              <img src="images/DeleteItem.png"/>
+            </li>
   </li>
  <li>
       <h3>if you are logged in as an employee, you will see the following page".</h3><br/>
